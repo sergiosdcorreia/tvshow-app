@@ -1,13 +1,22 @@
 import axios from 'axios';
 
-const Home = (props) => {
+const Home = ({ shows }) => {
 
+    const renderShows = () => {
+        return shows.map((showItem, index) => {
+            const { show } = showItem;
+
+            return (
+                <li key={index}>{show.name}</li>
+            )
+        })
+    }
     return (
-        <h1>This is a country Test</h1>
+        <ul className="tvshows">{ renderShows() }</ul>
     )
 }
 
-Home.getInitialProps = async () => {
+Home.getInitialProps = async (context) => {
     const response = await axios.get('http://api.tvmaze.com/schedule?country=US&date=2014-12-01');
     
     return {
