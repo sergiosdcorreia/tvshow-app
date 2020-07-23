@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Thumbnail from '../../components/Thumbnail';
+import Header from '../../components/Header';
 
 const Home = ({ shows, country }) => {
 
@@ -20,22 +21,25 @@ const Home = ({ shows, country }) => {
         })
     }
     return (
-        <ul className="tvshows">
+        <div className="home">
+            <Header />
+            <ul className="tvshows">
 
-            { renderShows() }
+                { renderShows() }
 
-            <style jsx>{`
-                .tvshows {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                    padding: 0;
-                    margin: 0;
-                    list-style-type: none;
-                }
-            `}
-            </style>    
-        </ul>
+                <style jsx>{`
+                    .tvshows {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 20px;
+                        padding: 0;
+                        margin: 0;
+                        list-style-type: none;
+                    }
+                `}
+                </style>    
+            </ul>
+        </div>
     )
 }
 
