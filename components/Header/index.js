@@ -43,7 +43,8 @@ const Header = () => {
                 padding: 20px;
                 background-color: #333;
                 color: #fff;
-                text-align: center
+                text-align: center;
+                margin-bottom: 10px;
             }
         `}</style>
     </div>
