@@ -2,12 +2,13 @@ import axios from "axios";
 import parse from 'html-react-parser';
 import Cast from '../../components/Cast';
 import Error from 'next/error';
+import CustomError from '../_error';
 
 const ShowDetails = ({ show = {}, statusCode }) => {
     const { name, image, summary, _embedded } = show;
 
     if (statusCode) {
-        return <Error statusCode={statusCode} title="Oops! There was a problem here..."></Error>;
+        return <CustomError statusCode={statusCode} title="Oops! There was a problem here..."></CustomError>;
     }
 
     return (
