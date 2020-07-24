@@ -1,9 +1,14 @@
 import axios from "axios";
 import parse from 'html-react-parser';
 import Cast from '../../components/Cast';
+import Error from 'next/error';
 
-const ShowDetails = ({ show }) => {
+const ShowDetails = ({ show = {}, statusCode }) => {
     const { name, image, summary, _embedded } = show;
+
+    if (statusCode) {
+        return <Error statusCode={statusCode} title="Oops! There was a problem here..."></Error>;
+    }
 
     return (
         <div className="show-details">
@@ -28,15 +33,20 @@ const ShowDetails = ({ show }) => {
 };
 
 ShowDetails.getInitialProps = async ({ query }) => {
-    const { showId } = query;
+    try {
+        const { showId } = query;
+        const response = await axios.get(
+            `http://api.tvmaze.com/shows/${showId}?embed=cast`
+        );
 
-    const response = await axios.get(
-        `http://api.tvmaze.com/shows/${showId}?embed=cast`
-    );
-
-    return {
-        show: response.data
-    };
+        return {
+            show: response.data
+        };
+    } catch(error) {
+        return {
+            statusCode: error.response ? error.response.status : 500
+        }
+    }
 };
 
 export default ShowDetails;
